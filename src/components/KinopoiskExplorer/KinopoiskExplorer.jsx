@@ -1,3 +1,18 @@
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import MovieCreationRoundedIcon from "@mui/icons-material/MovieCreationRounded";
+import {
+  Alert,
+  Box,
+  Card as MuiCard,
+  CardContent,
+  CardMedia,
+  Chip,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchKinopoiskMovies } from "../../api/kinopoisk";
@@ -5,7 +20,6 @@ import { FilterInput } from "../FilterInput/FilterInput";
 import { SearchInput } from "../SearchInput/SearchInput";
 import { toggleFavorite } from "../../store/slices/favoritesSlice";
 import { Card } from "../ui/Card";
-import styles from "../../styles/kinopoiskExplorer.module.css";
 
 const GENRE_OPTIONS = [
   "драма",
@@ -68,84 +82,131 @@ export function KinopoiskExplorer() {
 
   return (
     <Card>
-      <div className={styles.wrapper}>
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>Kinopoisk API</p>
-          <h2 className={styles.title}>Поиск и фильтрация фильмов</h2>
-        </div>
+      <Stack spacing={3}>
+        <Stack spacing={1}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <MovieCreationRoundedIcon color="primary" fontSize="small" />
+            <Typography variant="overline" sx={{ letterSpacing: "0.14em" }}>
+              Kinopoisk API
+            </Typography>
+          </Stack>
+          <Typography variant="h2">Поиск и фильтрация фильмов</Typography>
+        </Stack>
 
-        <div className={styles.controls}>
-          <SearchInput value={searchValue} onChange={setSearchValue} />
-          <FilterInput
-            value={genreValue}
-            onChange={setGenreValue}
-            options={GENRE_OPTIONS}
-          />
-        </div>
+        <Grid container spacing={2}>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <SearchInput value={searchValue} onChange={setSearchValue} />
+          </Grid>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <FilterInput
+              value={genreValue}
+              onChange={setGenreValue}
+              options={GENRE_OPTIONS}
+            />
+          </Grid>
+        </Grid>
 
-        {isLoading ? <p className={styles.status}>Ищу фильмы...</p> : null}
-        {error ? <p className={styles.error}>{error}</p> : null}
+        {isLoading ? <Alert severity="info">Ищу фильмы...</Alert> : null}
+        {error ? <Alert severity="error">{error}</Alert> : null}
 
         {!isLoading && !error && movies.length === 0 ? (
-          <p className={styles.status}>
-            По текущему запросу ничего не нашлось. Попробуй изменить поиск или
-            жанр.
-          </p>
+          <Alert severity="warning">
+            По текущему запросу ничего не нашлось. Попробуй изменить поиск или жанр.
+          </Alert>
         ) : null}
 
         {!isLoading && !error && movies.length > 0 ? (
-          <div className={styles.grid}>
-            {movies.map((movie) => (
-              <article key={movie.id} className={styles.movieCard}>
-                <div className={styles.posterWrap}>
-                  <button
-                    type="button"
-                    className={`${styles.favoriteButton} ${
-                      favoriteIds.includes(movie.id) ? styles.favoriteButtonActive : ""
-                    }`}
-                    onClick={() => dispatch(toggleFavorite({ id: movie.id }))}
-                    aria-label={
-                      favoriteIds.includes(movie.id)
-                        ? "Удалить из избранного"
-                        : "Добавить в избранное"
-                    }
+          <Grid container spacing={2}>
+            {movies.map((movie) => {
+              const isFavorite = favoriteIds.includes(movie.id);
+
+              return (
+                <Grid key={movie.id} size={{ xs: 12, md: 6, xl: 4 }}>
+                  <MuiCard
+                    variant="outlined"
+                    sx={{
+                      height: "100%",
+                      borderRadius: 4,
+                      overflow: "hidden",
+                      bgcolor: "rgba(8, 15, 29, 0.82)",
+                      borderColor: "rgba(124, 156, 255, 0.14)",
+                    }}
                   >
-                    {favoriteIds.includes(movie.id) ? "♥" : "♡"}
-                  </button>
+                    <Box sx={{ position: "relative" }}>
+                      {movie.poster ? (
+                        <CardMedia
+                          component="img"
+                          height="240"
+                          image={movie.poster}
+                          alt={`Постер: ${movie.title}`}
+                        />
+                      ) : (
+                        <Box
+                          sx={{
+                            height: 240,
+                            display: "grid",
+                            placeItems: "center",
+                            bgcolor: "rgba(15, 23, 42, 0.85)",
+                          }}
+                        >
+                          <Typography color="text.secondary">Нет постера</Typography>
+                        </Box>
+                      )}
 
-                  {movie.poster ? (
-                    <img
-                      src={movie.poster}
-                      alt={`Постер: ${movie.title}`}
-                      className={styles.poster}
-                    />
-                  ) : (
-                    <div className={styles.posterFallback}>Нет постера</div>
-                  )}
-                </div>
+                      <IconButton
+                        onClick={() => dispatch(toggleFavorite({ id: movie.id }))}
+                        aria-label={
+                          isFavorite ? "Удалить из избранного" : "Добавить в избранное"
+                        }
+                        sx={{
+                          position: "absolute",
+                          top: 12,
+                          right: 12,
+                          bgcolor: isFavorite
+                            ? "rgba(244, 63, 94, 0.92)"
+                            : "rgba(8, 15, 29, 0.75)",
+                          color: "#fff",
+                          "&:hover": {
+                            bgcolor: isFavorite
+                              ? "rgba(225, 29, 72, 0.94)"
+                              : "rgba(15, 23, 42, 0.9)",
+                          },
+                        }}
+                      >
+                        {isFavorite ? (
+                          <FavoriteRoundedIcon />
+                        ) : (
+                          <FavoriteBorderRoundedIcon />
+                        )}
+                      </IconButton>
+                    </Box>
 
-                <div className={styles.movieContent}>
-                  <div className={styles.movieMeta}>
-                    <span>{movie.year}</span>
-                    <span>
-                      {movie.rating ? `KP ${movie.rating.toFixed(1)}` : "Без рейтинга"}
-                    </span>
-                  </div>
-                  <h3 className={styles.movieTitle}>{movie.title}</h3>
-                  <p className={styles.movieDescription}>{movie.description}</p>
-                  <div className={styles.genreList}>
-                    {movie.genres.map((genre) => (
-                      <span key={`${movie.id}-${genre}`} className={styles.genreChip}>
-                        {genre}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                    <CardContent sx={{ display: "grid", gap: 1.5 }}>
+                      <Stack direction="row" justifyContent="space-between">
+                        <Typography color="text.secondary">{movie.year}</Typography>
+                        <Typography color="primary.light">
+                          {movie.rating
+                            ? `KP ${movie.rating.toFixed(1)}`
+                            : "Без рейтинга"}
+                        </Typography>
+                      </Stack>
+
+                      <Typography variant="h3">{movie.title}</Typography>
+                      <Typography color="text.secondary">{movie.description}</Typography>
+
+                      <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+                        {movie.genres.map((genre) => (
+                          <Chip key={`${movie.id}-${genre}`} label={genre} size="small" />
+                        ))}
+                      </Stack>
+                    </CardContent>
+                  </MuiCard>
+                </Grid>
+              );
+            })}
+          </Grid>
         ) : null}
-      </div>
+      </Stack>
     </Card>
   );
 }

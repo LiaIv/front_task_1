@@ -18,15 +18,19 @@ export function LifecycleDemo() {
   }, [count]);
 
   return (
-    <div style={{
-      background: "#0f172a",
-      border: "1px solid #1f2a44",
-      borderRadius: 12,
-      padding: 16,
-      marginTop: 12,
-      textAlign: "center"
-    }}>
-      <p style={{ marginBottom: 8 }}>Счётчик: <strong>{count}</strong></p>
+    <div
+      style={{
+        background: "#0f172a",
+        border: "1px solid #1f2a44",
+        borderRadius: 12,
+        padding: 16,
+        marginTop: 12,
+        textAlign: "center",
+      }}
+    >
+      <p style={{ marginBottom: 8 }}>
+        Счётчик: <strong>{count}</strong>
+      </p>
       <button
         onClick={() => setCount((prev) => prev + 1)}
         style={{
@@ -35,7 +39,7 @@ export function LifecycleDemo() {
           border: "none",
           background: "#4f46e5",
           color: "#fff",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       >
         +1

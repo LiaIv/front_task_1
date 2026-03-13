@@ -1,6 +1,7 @@
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import { Avatar, Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Card } from "../ui/Card";
-import styles from "../../styles/userCard.module.css";
 
 export function UserCard({ name, role }) {
   const [likes, setLikes] = useState(0);
@@ -17,35 +18,70 @@ export function UserCard({ name, role }) {
   ];
 
   return (
-    <Card>
-      <div className={styles.hero} />
+    <Card sx={{ overflow: "hidden" }}>
+      <Box
+        sx={{
+          height: 118,
+          mx: -3,
+          mt: -3,
+          mb: 3,
+          background:
+            'radial-gradient(circle at 20% 20%, rgba(124, 156, 255, 0.5), transparent 25%), radial-gradient(circle at 82% 32%, rgba(52, 211, 153, 0.35), transparent 18%), url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1200") center / cover',
+        }}
+      />
 
-      <div className={styles.wrapper}>
-        <div className={styles.profileRow}>
-          <img
+      <Stack spacing={2.5}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Avatar
             src="https://i.pravatar.cc/120?img=47"
             alt={`Аватар ${name}`}
-            className={styles.avatar}
+            sx={{
+              width: 72,
+              height: 72,
+              mt: -7,
+              border: "3px solid rgba(124, 156, 255, 0.9)",
+              boxShadow: "0 14px 32px rgba(3, 7, 18, 0.28)",
+            }}
           />
-          <div>
-            <div className={styles.name}>{name}</div>
-            <div className={styles.role}>{role}</div>
-          </div>
-        </div>
+          <Box>
+            <Typography variant="h2" sx={{ fontSize: "1.8rem" }}>
+              {name}
+            </Typography>
+            <Typography color="text.secondary">{role}</Typography>
+          </Box>
+        </Stack>
 
-        <div className={styles.statsGrid}>
+        <Grid container spacing={1.5}>
           {stats.map((s) => (
-            <div key={s.label} className={styles.statItem}>
-              <span className={styles.statLabel}>{s.label}</span>
-              <strong>{s.value}</strong>
-            </div>
+            <Grid key={s.label} size={{ xs: 12, sm: 6 }}>
+              <Box
+                sx={{
+                  p: 2,
+                  borderRadius: 3,
+                  bgcolor: "rgba(8, 15, 29, 0.7)",
+                  border: "1px solid rgba(124, 156, 255, 0.12)",
+                }}
+              >
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                  {s.label}
+                </Typography>
+                <Typography variant="h3">{s.value}</Typography>
+              </Box>
+            </Grid>
           ))}
-        </div>
+        </Grid>
 
-        <button type="button" className={styles.likeButton} onClick={handleLike}>
-          ❤️ Нравится
-        </button>
-      </div>
+        <Button
+          type="button"
+          variant="contained"
+          color="secondary"
+          startIcon={<FavoriteRoundedIcon />}
+          onClick={handleLike}
+          sx={{ alignSelf: "flex-start", borderRadius: 999 }}
+        >
+          Нравится
+        </Button>
+      </Stack>
     </Card>
   );
 }

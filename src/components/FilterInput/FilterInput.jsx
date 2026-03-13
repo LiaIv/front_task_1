@@ -1,22 +1,27 @@
-import styles from "../../styles/inputField.module.css";
+import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
+import { InputAdornment, MenuItem, TextField } from "@mui/material";
 
 export function FilterInput({ value, onChange, options }) {
   return (
-    <label className={styles.field}>
-      <span className={styles.label}>Фильтр по жанру</span>
-      <input
-        type="text"
-        list="genre-options"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder="Например, драма"
-        className={styles.input}
-      />
-      <datalist id="genre-options">
-        {options.map((option) => (
-          <option key={option} value={option} />
-        ))}
-      </datalist>
-    </label>
+    <TextField
+      select
+      fullWidth
+      label="Фильтр по жанру"
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <FilterAltRoundedIcon fontSize="small" />
+          </InputAdornment>
+        ),
+      }}
+    >
+      {options.map((option) => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 }

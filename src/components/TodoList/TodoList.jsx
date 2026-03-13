@@ -25,9 +25,7 @@ export function TodoList({ title, initialTasks }) {
     ]);
   };
 
-  const visibleTasks = showCompleted
-    ? tasks
-    : tasks.filter((task) => !task.completed);
+  const visibleTasks = showCompleted ? tasks : tasks.filter((task) => !task.completed);
 
   return (
     <Card>
@@ -35,9 +33,7 @@ export function TodoList({ title, initialTasks }) {
         <div className={styles.header}>
           <div>
             <h2 className={styles.title}>{title}</h2>
-            <p className={styles.subtitle}>
-              Динамический список с условным рендерингом
-            </p>
+            <p className={styles.subtitle}>Динамический список с условным рендерингом</p>
           </div>
 
           <div className={styles.actions}>
@@ -58,9 +54,7 @@ export function TodoList({ title, initialTasks }) {
             {visibleTasks.map((task) => (
               <button
                 key={task.id}
-                className={`${styles.item} ${
-                  task.completed ? styles.itemCompleted : ""
-                }`}
+                className={`${styles.item} ${task.completed ? styles.itemCompleted : ""}`}
                 onClick={() => handleToggleTask(task.id)}
               >
                 <span>{task.text}</span>

@@ -1,16 +1,19 @@
-export function Card({ children }) {
+import { Paper } from "@mui/material";
+
+export function Card({ children, sx }) {
   return (
-    <section
-      style={{
-        background: "rgba(46, 57, 81, 0.92)",
-        border: "1px solid rgba(79, 101, 140, 0.35)",
-        borderRadius: 22,
-        padding: 22,
-        boxShadow: "0 18px 48px rgba(0, 0, 0, 0.24)",
-        backdropFilter: "blur(10px)",
+    <Paper
+      elevation={0}
+      sx={{
+        p: { xs: 2.25, md: 3 },
+        borderRadius: 5,
+        border: "1px solid rgba(124, 156, 255, 0.16)",
+        background: "rgba(17, 24, 39, 0.74)",
+        boxShadow: "0 24px 60px rgba(3, 7, 18, 0.24)",
+        ...sx,
       }}
     >
       {children}
-    </section>
+    </Paper>
   );
 }

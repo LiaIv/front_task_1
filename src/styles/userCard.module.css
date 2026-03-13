@@ -10,8 +10,8 @@
   background:
     radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.45), transparent 25%),
     radial-gradient(circle at 80% 30%, rgba(56, 189, 248, 0.22), transparent 20%),
-    url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1200")
-      center / cover;
+    url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1200") center /
+      cover;
 }
 
 .profileRow {

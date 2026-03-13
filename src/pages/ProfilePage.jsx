@@ -1,14 +1,21 @@
+import FaceRoundedIcon from "@mui/icons-material/FaceRounded";
+import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
+import {
+  Alert,
+  Button,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../components/ui/Card";
 import { setUserName } from "../store/slices/userSlice";
-import styles from "../styles/profilePage.module.css";
 
 export default function ProfilePage() {
   const storedName = useSelector((state) => state.user.name);
-  const [inputValue, setInputValue] = useState(
-    storedName === "Гость" ? "" : storedName,
-  );
+  const [inputValue, setInputValue] = useState(storedName === "Гость" ? "" : storedName);
   const dispatch = useDispatch();
 
   const handleSaveName = () => {
@@ -17,33 +24,43 @@ export default function ProfilePage() {
 
   return (
     <Card>
-      <div className={styles.wrapper}>
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>Redux Toolkit</p>
-          <h2 className={styles.title}>Имя пользователя в глобальном store</h2>
+      <Stack spacing={3}>
+        <div>
+          <Typography variant="overline" color="secondary.light">
+            Redux Toolkit
+          </Typography>
+          <Typography variant="h2">Имя пользователя в глобальном store</Typography>
         </div>
 
-        <div className={styles.form}>
-          <label className={styles.label} htmlFor="user-name">
-            Имя пользователя
-          </label>
-          <input
+        <Stack spacing={2} sx={{ maxWidth: 460 }}>
+          <TextField
             id="user-name"
-            type="text"
+            label="Имя пользователя"
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
             placeholder="Например, Розалия"
-            className={styles.input}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <FaceRoundedIcon sx={{ color: "text.secondary" }} />
+                </InputAdornment>
+              ),
+            }}
           />
-          <button type="button" className={styles.button} onClick={handleSaveName}>
+          <Button
+            type="button"
+            variant="contained"
+            color="secondary"
+            startIcon={<SaveRoundedIcon />}
+            onClick={handleSaveName}
+            sx={{ alignSelf: "flex-start", borderRadius: 999 }}
+          >
             Сохранить имя
-          </button>
-        </div>
+          </Button>
+        </Stack>
 
-        <div className={styles.preview}>
-          Сейчас в store: <strong>{storedName}</strong>
-        </div>
-      </div>
+        <Alert severity="success">Сейчас в store: {storedName}</Alert>
+      </Stack>
     </Card>
   );
 }

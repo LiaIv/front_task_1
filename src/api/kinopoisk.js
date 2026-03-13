@@ -7,8 +7,7 @@ function buildHeaders(apiKey) {
 }
 
 function normalizeMovie(movie) {
-  const title =
-    movie.name || movie.alternativeName || movie.enName || "Без названия";
+  const title = movie.name || movie.alternativeName || movie.enName || "Без названия";
   const genres = Array.isArray(movie.genres)
     ? movie.genres.map((genre) => genre.name).filter(Boolean)
     : [];
@@ -59,18 +58,11 @@ function filterMoviesByGenre(movies, genre) {
   const normalizedGenre = genre.trim().toLowerCase();
 
   return movies.filter((movie) =>
-    movie.genres.some((movieGenre) =>
-      movieGenre.toLowerCase().includes(normalizedGenre),
-    ),
+    movie.genres.some((movieGenre) => movieGenre.toLowerCase().includes(normalizedGenre)),
   );
 }
 
-export async function fetchKinopoiskMovies({
-  apiKey,
-  query,
-  genre,
-  signal,
-}) {
+export async function fetchKinopoiskMovies({ apiKey, query, genre, signal }) {
   const normalizedQuery = query.trim();
   const normalizedGenre = genre.trim();
   const url = normalizedQuery

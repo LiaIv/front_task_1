@@ -1,16 +1,21 @@
-import styles from "../../styles/inputField.module.css";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import { InputAdornment, TextField } from "@mui/material";
 
 export function SearchInput({ value, onChange }) {
   return (
-    <label className={styles.field}>
-      <span className={styles.label}>Поиск фильма</span>
-      <input
-        type="text"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder="Например, Интерстеллар"
-        className={styles.input}
-      />
-    </label>
+    <TextField
+      fullWidth
+      label="Поиск фильма"
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      placeholder="Например, Интерстеллар"
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchRoundedIcon fontSize="small" />
+          </InputAdornment>
+        ),
+      }}
+    />
   );
 }
