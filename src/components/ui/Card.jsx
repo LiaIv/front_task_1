@@ -2,11 +2,12 @@ export function Card({ children }) {
   return (
     <section
       style={{
-        background: "#2e3951",
-        border: "1px solid #223046",
-        borderRadius: 16,
-        padding: 16,
-        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.25)",
+        background: "rgba(46, 57, 81, 0.92)",
+        border: "1px solid rgba(79, 101, 140, 0.35)",
+        borderRadius: 22,
+        padding: 22,
+        boxShadow: "0 18px 48px rgba(0, 0, 0, 0.24)",
+        backdropFilter: "blur(10px)",
       }}
     >
       {children}

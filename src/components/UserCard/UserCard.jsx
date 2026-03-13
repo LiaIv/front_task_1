@@ -18,26 +18,19 @@ export function UserCard({ name, role }) {
 
   return (
     <Card>
-      {/* Задание 2.3: фоновое изображение через background-image */}
-      <div style={{
-        backgroundImage: "url(https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: 140,
-        borderRadius: "12px 12px 0 0",
-        margin: "-16px -16px 0 -16px"
-      }} />
+      <div className={styles.hero} />
 
       <div className={styles.wrapper}>
-        {/* Задание 2.3: изображение через <img> */}
-        <img
-          src="https://i.pravatar.cc/120?img=47"
-          alt={`Аватар ${name}`}
-          className={styles.avatar}
-        />
-        <div>
-          <div className={styles.name}>{name}</div>
-          <div className={styles.role}>{role}</div>
+        <div className={styles.profileRow}>
+          <img
+            src="https://i.pravatar.cc/120?img=47"
+            alt={`Аватар ${name}`}
+            className={styles.avatar}
+          />
+          <div>
+            <div className={styles.name}>{name}</div>
+            <div className={styles.role}>{role}</div>
+          </div>
         </div>
 
         <div className={styles.statsGrid}>
@@ -49,7 +42,7 @@ export function UserCard({ name, role }) {
           ))}
         </div>
 
-        <button className={styles.likeButton} onClick={handleLike}>
+        <button type="button" className={styles.likeButton} onClick={handleLike}>
           ❤️ Нравится
         </button>
       </div>

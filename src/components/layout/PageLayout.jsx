@@ -9,7 +9,14 @@ export function PageLayout({ children }) {
         alignItems: "flex-start",
         padding: "40px 24px",
       }}>
-      <div style={{ width: "100%", maxWidth: 720 }}>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 1080,
+          display: "grid",
+          gap: 20,
+        }}
+      >
         {children}
       </div>
     </div>
