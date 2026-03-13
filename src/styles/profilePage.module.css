@@ -1,0 +1,65 @@
+.wrapper {
+  display: grid;
+  gap: 20px;
+}
+
+.heading {
+  display: grid;
+  gap: 8px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #34d399;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+}
+
+.description {
+  margin: 0;
+  color: #cbd5e1;
+  max-width: 680px;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+  max-width: 460px;
+}
+
+.label {
+  color: #e2e8f0;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #334155;
+  background: rgba(15, 23, 42, 0.85);
+  color: #fff;
+}
+
+.button {
+  width: fit-content;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #10b981, #059669);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.preview {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #cbd5e1;
+}

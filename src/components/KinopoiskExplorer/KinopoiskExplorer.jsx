@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchKinopoiskMovies } from "../../api/kinopoisk";
 import { FilterInput } from "../FilterInput/FilterInput";
 import { SearchInput } from "../SearchInput/SearchInput";
+import { toggleFavorite } from "../../store/slices/favoritesSlice";
 import { Card } from "../ui/Card";
 import styles from "../../styles/kinopoiskExplorer.module.css";
 
@@ -22,6 +24,8 @@ export function KinopoiskExplorer() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const favoriteIds = useSelector((state) => state.favorites.ids);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!apiKey) {
@@ -79,11 +83,6 @@ export function KinopoiskExplorer() {
           />
         </div>
 
-        <div className={styles.note}>
-          Для ручной проверки Swagger используй `Authorize` и свой ключ от
-          `@poiskkinodev_bot`.
-        </div>
-
         {isLoading ? <p className={styles.status}>Ищу фильмы...</p> : null}
         {error ? <p className={styles.error}>{error}</p> : null}
 
@@ -99,6 +98,21 @@ export function KinopoiskExplorer() {
             {movies.map((movie) => (
               <article key={movie.id} className={styles.movieCard}>
                 <div className={styles.posterWrap}>
+                  <button
+                    type="button"
+                    className={`${styles.favoriteButton} ${
+                      favoriteIds.includes(movie.id) ? styles.favoriteButtonActive : ""
+                    }`}
+                    onClick={() => dispatch(toggleFavorite({ id: movie.id }))}
+                    aria-label={
+                      favoriteIds.includes(movie.id)
+                        ? "Удалить из избранного"
+                        : "Добавить в избранное"
+                    }
+                  >
+                    {favoriteIds.includes(movie.id) ? "♥" : "♡"}
+                  </button>
+
                   {movie.poster ? (
                     <img
                       src={movie.poster}
