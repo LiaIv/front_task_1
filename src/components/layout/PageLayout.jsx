@@ -6,10 +6,10 @@ export function PageLayout({ children }) {
         color: "#e6e6e6",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
-        padding: 24,
+        alignItems: "flex-start",
+        padding: "40px 24px",
       }}>
-      <div style={{ width: "100%", maxWidth: 520 }}>
+      <div style={{ width: "100%", maxWidth: 720 }}>
         {children}
       </div>
     </div>

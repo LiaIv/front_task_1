@@ -1,0 +1,57 @@
+.wrapper {
+  display: grid;
+  gap: 12px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.role {
+  opacity: 0.8;
+}
+
+.statsGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.statItem {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #0f172a;
+  border: 1px solid #1f2a44;
+}
+
+.statLabel {
+  opacity: 0.85;
+}
+
+.likeButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.likeButton:hover {
+  background: #4338ca;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid #4f46e5;
+  object-fit: cover;
+  margin-top: -52px;
+}
